@@ -44,6 +44,25 @@ Step-by-Step:
 3. Return the filtered result.
 */
 
+let productAvailability = a => a.inStock == true;
+
+function filterProducts (productArray, productCriteria){
+  return productArray.filter(productCriteria)
+
+}
+console.log(filterProducts(products, productAvailability));
+
+// Goal: Filtering the products by price (equal or over 500). Check for availabilty too.
+
+let cost = b => b.price >= 500;
+
+function filterByPrice (productArray, costCriteria, availability) {
+
+  return productArray.filter(costCriteria).filter(availability);
+
+}
+console.log(filterByPrice(products, cost, productAvailability));
+
 
 /*
 🔹 Task 2: Transform Product Names
@@ -55,6 +74,12 @@ Step-by-Step:
 2. Extract and transform the `name` property to uppercase.
 3. Store the result in a new variable.
 */
+
+console.log("****** 🔹 Task 2: Transform Product Names ******");
+
+let productUpperCase = products.map(...products.name.toUpperCase());
+
+console.log(productUpperCase);
 
 
 /*
