@@ -1,16 +1,18 @@
-/*
-===========================================
-🛒 Higher-Order Functions: Product Utilities
-===========================================
-
-🎯 Objective:
-Students will create and work with higher-order functions to transform and manipulate data.
-
-They will:
-- Write higher-order functions that accept callbacks to apply transformations dynamically
-- Practice returning functions from higher-order functions for reusable, customizable utilities
-- Gain experience using `map`, `filter`, and `reduce` to perform practical data transformations
-*/
+/**
+ * ===========================================
+ * 🛒 Higher-Order Functions: Product Utilities
+ * ===========================================
+ *
+ * 🎯 Objective:
+ * Students will create and work with higher-order functions to transform and manipulate data.
+ *
+ * They will:
+ * - Write higher-order functions that accept callbacks to apply transformations dynamically
+ * - Practice returning functions from higher-order functions for reusable, customizable utilities
+ * - Gain experience using `map`, `filter`, and `reduce` to perform practical data transformations
+ *
+ * @format
+ */
 
 // ============================================
 // 📦 Starting Dataset: Product List
@@ -44,25 +46,32 @@ Step-by-Step:
 3. Return the filtered result.
 */
 
-let productAvailability = a => a.inStock == true;
+console.log(`🔹🔹🔹  Task 1: Filter Products by Availability 🔹🔹🔹 `);
 
-function filterProducts (productArray, productCriteria){
-  return productArray.filter(productCriteria)
+let productAvailability = (a) => a.inStock == true;
 
+function filterProducts(productArray, productCriteria) {
+  return productArray.filter(productCriteria);
 }
-console.log(filterProducts(products, productAvailability));
+
+console.log(
+  `Filtered products by availability: \n`,
+  filterProducts(products, productAvailability)
+);
+
+console.log(`🔹🔹🔹  Task 1: Filter Products by Availability AND Cost 🔹🔹🔹 `);
 
 // Goal: Filtering the products by price (equal or over 500). Check for availabilty too.
 
-let cost = b => b.price >= 500;
+let cost = (b) => b.price >= 500;
 
-function filterByPrice (productArray, costCriteria, availability) {
-
+function filterByPrice(productArray, costCriteria, availability) {
   return productArray.filter(costCriteria).filter(availability);
-
 }
-console.log(filterByPrice(products, cost, productAvailability));
-
+console.log(
+  `Filtered products by availability AND COST: \n`,
+  filterByPrice(products, cost, productAvailability)
+);
 
 /*
 🔹 Task 2: Transform Product Names
@@ -75,12 +84,17 @@ Step-by-Step:
 3. Store the result in a new variable.
 */
 
-console.log("****** 🔹 Task 2: Transform Product Names ******");
+console.log("****** 🔹🔹🔹  Task 2: Transform Product Names 🔹🔹🔹 ******");
 
-let productUpperCase = products.map(...products.name.toUpperCase());
+let productUpperCase = products.map((a) => a.name.toUpperCase());
 
-console.log(productUpperCase);
+console.log(`Uppercased names: ${productUpperCase}`);
 
+// let productUpperCase = products.map(function (product)
+// {return product.name.toUpperCase();
+// });
+
+// console.log(productUpperCase);
 
 /*
 🔹 Task 3: Generate Discounted Prices
@@ -95,6 +109,22 @@ Step-by-Step:
 3. Use this returned function inside a `map()` call to apply discounts to all products.
 */
 
+console.log(`🔹🔹🔹 Task 3: Generate Discounted Prices 🔹🔹🔹`);
+
+function applyDiscount(discountPercent) {
+  return function (product) {
+    return product.price * (1 - discountPercent / 100);
+  };
+}
+
+const fiftyPercent = applyDiscount(50);
+
+let productsWithDiscount = products.map((a) => {
+  return { ...a, price: fiftyPercent(a) };
+});
+
+console.log(`Array reflecting the discount: ${productsWithDiscount}`);
+console.log(`Original array ${products}`);
 
 /*
 🔹 Task 4: Calculate Total Inventory Value
@@ -107,6 +137,13 @@ Step-by-Step:
 3. Store the total in a new variable.
 */
 
+console.log(`🔹🔹🔹 Task 4: Calculate Total Inventory Value 🔹🔹🔹`);
+
+let totalProductValue = products
+  .filter(productAvailability)
+  .reduce((accum, val) => accum + val.price, 0);
+
+console.log(`Total value in stock: ${totalProductValue}`);
 
 // ============================================
 // 🧪 Console Test Your Work
